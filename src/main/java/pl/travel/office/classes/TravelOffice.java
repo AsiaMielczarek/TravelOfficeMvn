@@ -47,22 +47,32 @@ public class TravelOffice {
         return sb.toString();
     }
 
-    public void addTrip(String tripName, Trip trip) {
-        tripMap.put(tripName, trip);
+    public void addTrip(String tripId, Trip trip) {
+        tripMap.put(tripId, trip);
     }
 
-    public boolean removeTrip(String tripName) {
-        if (tripMap.containsKey(tripName)) {
-            tripMap.remove(tripName);
+    public boolean removeTrip(String tripId) {
+        if (tripMap.containsKey(tripId)) {
+            tripMap.remove(tripId);
             return true;
         }
         return false;
     }
 
+    public Trip findTripById(String id){
+        Trip trip = null;
+        for(Map.Entry<String, Trip> mapEntry: tripMap.entrySet()){
+            if(mapEntry.getKey().equals(id)){
+                trip = mapEntry.getValue();
+            }
+        }
+        return trip;
+    }
+
     public String findAllTrips(){
         StringBuilder sb = new StringBuilder();
         for(Map.Entry<String, Trip> mapEntry: tripMap.entrySet()){
-            sb.append(mapEntry.getKey()).append("\n");
+            sb.append(mapEntry.getKey()).append(mapEntry.getValue()).append("\n");
         }
         return sb.toString();
     }

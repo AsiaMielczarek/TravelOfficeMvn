@@ -4,13 +4,13 @@ import java.math.BigDecimal;
 
 public abstract class Trip {
 
-    private String start;
-    private String end;
+    private Date start;
+    private Date end;
     private String destination;
     private BigDecimal price;
     private Customer customer;
 
-    public Trip(String start, String end, String destination) {
+    public Trip(Date start, Date end, String destination) {
         this.start = start;
         this.end = end;
         this.destination = destination;

@@ -5,23 +5,20 @@ import pl.travel.office.classes.Trip;
 
 public interface UserInterface {
 
-    void start();
+    Customer addCustomer();
 
-    void addCustomer(Customer customer);
+    Trip addTrip();
 
-    void addTrip(String tripName, Trip trip);
+    void assignTripToCustomer();
 
-    void addCustomerToTrip(Customer customer, Trip trip);
+    boolean removeCustomer();
 
-    void removeCustomer(Customer customer);
-
-    void removeTrip(String tripName);
+    boolean removeTrip();
 
     void showCustomers();
 
     void showTrips();
 
-    void exit();
 }
 
 

@@ -8,25 +8,27 @@ public class TravelOfficeTest {
 
 
     private TravelOffice travelOffice;
+
     @Before
     public void createTravelOffice(){
         travelOffice = new TravelOffice();
     }
 
     private Customer customer;
+
     @Before
     public void createCustomer(){
         customer = new Customer("Anonim");
     }
 
     private Trip trip;
+
     @Before
     public void createTrip(){
         trip = new AbroadTrip("1.1.2019", "3.1.2019", "Bali");
     }
 
     // -------------------------------------------------------------------------------- //
-
 
     @Test
     public void shouldAddCustomer() {
