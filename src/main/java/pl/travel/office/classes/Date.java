@@ -12,4 +12,9 @@ public class Date {
         String[] splitted = date.split(separator);
         return new java.util.Date(Integer.valueOf(splitted[0]), Integer.valueOf(splitted[1]), Integer.valueOf(splitted[2])).toString();
     }
+
+    @Override
+    public String toString() {
+        return " " + date + " ";
+    }
 }

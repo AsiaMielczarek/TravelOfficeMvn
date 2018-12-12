@@ -24,7 +24,7 @@ public abstract class Trip {
 
     @Override
     public String toString(){
-        return "from: " + start + " to: " + end + ", destination: " + destination + ", price: " + getPrice();
+        return "from: " + start.toString() + " to: " + end.toString() + ", destination: " + destination + ", price: " + getPrice();
     }
 }
 

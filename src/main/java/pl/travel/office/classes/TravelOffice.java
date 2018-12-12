@@ -37,7 +37,7 @@ public class TravelOffice {
     }
 
     public String findAllCustomers() {
-        Customer c = null;
+        Customer c;
         StringBuilder sb = new StringBuilder();
         Iterator<Customer> iterator = customers.iterator();
         while (iterator.hasNext()) {
@@ -72,7 +72,7 @@ public class TravelOffice {
     public String findAllTrips(){
         StringBuilder sb = new StringBuilder();
         for(Map.Entry<String, Trip> mapEntry: tripMap.entrySet()){
-            sb.append(mapEntry.getKey()).append(mapEntry.getValue()).append("\n");
+            sb.append(mapEntry.getValue().toString()).append("\n");
         }
         return sb.toString();
     }
@@ -89,32 +89,3 @@ public class TravelOffice {
     }
 }
 
-
-//    TABLICA DYNAMICZNA - 4.9
-
-//    private Customer[] customersTab = new Customer[2];
-//    private int customerCount = 0;
-//
-//    public void addCustomer(Customer customer){
-//        if(customerCount == customersTab.length) {
-//            Customer[] newCustomerTab = new Customer[customersTab.length + 2];
-//            System.arraycopy(customersTab, 0, newCustomerTab, 0, customersTab.length);
-//            customersTab = newCustomerTab;
-//        }
-//        customersTab[customerCount++] = customer;
-//    }
-//
-//    public int getCustomerCount(){
-//        return customerCount;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        for (int i = 0; i < customersTab.length; i++) {
-//            if(customersTab[i] != null){
-//                sb.append(customersTab[i].toString()).append("\n");
-//            }
-//        }
-//        return sb.toString();
-//    }

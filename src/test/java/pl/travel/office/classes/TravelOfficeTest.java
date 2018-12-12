@@ -2,10 +2,15 @@ package pl.travel.office.classes;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TravelOfficeTest {
-
 
     private TravelOffice travelOffice;
 
@@ -14,39 +19,26 @@ public class TravelOfficeTest {
         travelOffice = new TravelOffice();
     }
 
+    @Mock
     private Customer customer;
 
-    @Before
-    public void createCustomer(){
-        customer = new Customer("Anonim");
-    }
-
-    private Trip trip;
-
-    @Before
-    public void createTrip(){
-        trip = new AbroadTrip("1.1.2019", "3.1.2019", "Bali");
-    }
+    @Mock
+    private Trip mockTrip;
 
     // -------------------------------------------------------------------------------- //
 
     @Test
     public void shouldAddCustomer() {
-        assertEquals(0, travelOffice.getCustomerCount());
+        int customerCounter = travelOffice.getCustomerCount();
         travelOffice.addCustomer(customer);
-        assertEquals(1, travelOffice.getCustomerCount());
-    }
-
-    @Test
-    public void shouldCountCustomers() {
-        travelOffice.addCustomer(customer);
-        assertEquals(1, travelOffice.getCustomerCount());
+        assertEquals(customerCounter + 1, travelOffice.getCustomerCount());
     }
 
     @Test
     public void shouldFindCustomerByName() {
+        when(customer.getName()).thenReturn("Mock");
         travelOffice.addCustomer(customer);
-        assertEquals(customer, travelOffice.findCustomerByName(customer.getName()));
+        assertEquals(travelOffice.findCustomerByName("Mock"), travelOffice.findCustomerByName(customer.getName()));
     }
 
     @Test
@@ -63,20 +55,20 @@ public class TravelOfficeTest {
 
     @Test
     public void shouldAddTrip() {
-        assertFalse(travelOffice.findAllTrips().contains("Bali"));
-        travelOffice.addTrip("Bali",trip);
-        assertTrue(travelOffice.findAllTrips().contains("Bali"));
+        assertEquals(null, travelOffice.findTripById("1"));
+        travelOffice.addTrip("1", mockTrip);
+        assertEquals(mockTrip, travelOffice.findTripById("1"));
     }
 
     @Test
     public void shouldRemoveTrip() {
-        travelOffice.addTrip("Bali", trip);
-        assertTrue(travelOffice.removeTrip("Bali"));
+        travelOffice.addTrip("1", mockTrip);
+        assertTrue(travelOffice.removeTrip("1"));
     }
 
     @Test
     public void shouldReturnAllTrips() {
-        travelOffice.addTrip("Bali", trip);
-        assertEquals("Bali" + "\n", travelOffice.findAllTrips());
+        travelOffice.addTrip("1", mockTrip);
+        assertEquals(mockTrip.toString() + "\n", travelOffice.findAllTrips());
     }
 }

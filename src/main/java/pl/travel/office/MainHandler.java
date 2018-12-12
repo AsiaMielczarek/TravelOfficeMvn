@@ -4,6 +4,8 @@ import pl.travel.office.classes.*;
 import pl.travel.office.interfaces.UserInterface;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParsePosition;
 import java.util.Scanner;
 
 import static pl.travel.office.classes.Date.setDate;
@@ -11,7 +13,7 @@ import static pl.travel.office.classes.Date.setDate;
 public class MainHandler implements UserInterface {
 
     private TravelOffice travelOffice;
-    private Scanner sc = null;
+    private Scanner sc;
 
     public MainHandler(TravelOffice travelOffice) {
         this.travelOffice = travelOffice;
@@ -62,24 +64,28 @@ public class MainHandler implements UserInterface {
         System.out.println("Enter the destination of trip: ");
         String destination = sc.nextLine();
 
+        DecimalFormat df = new DecimalFormat();
+        df.setParseBigDecimal(true);
+
         System.out.println("Enter the price of trip: ");
-        BigDecimal price = sc.nextBigDecimal();
-        trip.setPrice(price);
+        String price = sc.nextLine();
 
         System.out.println("Choose the type of trip. /AT/ for Abroad Trip and /DT/ for domestic trip.");
         String type = sc.nextLine();
 
         if(type.equals("AT")){
             trip = new AbroadTrip(startDate, endDate, destination);
+            trip.setPrice(new BigDecimal(price));
             System.out.println("Enter the insurance price: ");
-            BigDecimal insurance = sc.nextBigDecimal();
-            ((AbroadTrip) trip).setInsurance(insurance);
+            String insurance = sc.nextLine();
+            ((AbroadTrip) trip).setInsurance(new BigDecimal(insurance));
 
         } else if(type.equals("DT")){
             trip = new DomesticTrip(startDate, endDate, destination);
+            trip.setPrice(new BigDecimal(price));
             System.out.println("Enter the discount value: ");
-            BigDecimal discount = sc.nextBigDecimal();
-            ((DomesticTrip) trip).setOwnArrivalDiscount(discount);
+            String discount = sc.nextLine();
+            ((DomesticTrip) trip).setOwnArrivalDiscount(new BigDecimal(discount));
 
         } else {
             System.out.println("Please, choose one of them.");
@@ -98,7 +104,7 @@ public class MainHandler implements UserInterface {
         System.out.println("Enter trip id: ");
         String tripId = sc.nextLine();
 
-        Customer customer = null;
+        Customer customer;
         if(travelOffice.findCustomerByName(customerName) != null){
             customer =  travelOffice.findCustomerByName(customerName);
             customer.assignTrip(travelOffice.findTripById(tripId));
